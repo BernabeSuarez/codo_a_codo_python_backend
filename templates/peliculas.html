@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado </title>
+</head>
+
+<body>
+
+    <h1>Listado de Peliculas</h1>
+    {% for peli in data %}
+    <p>{{ peli[1] }}</p>
+    <p>{{ peli[2] }}</p>
+    <p>{{ peli[3] }}</p>
+    <img src={{ peli[4] }} alt={{ peli[1] }}>
+    {% endfor %}
+
+</body>
+
+</html>
