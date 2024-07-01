@@ -87,5 +87,55 @@ def agregar_pelicula():
             return jsonify({"message": str(e)}), 500
 
 
+@app.route("/peliculas")
+def get_peliculas():
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM peliculas")
+    data = cur.fetchall()
+    cur.close()
+    return render_template("peliculas.html", data=data)
+
+
+@app.route("/peliculas/<int:id>")
+def get_pelicula(id):
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM peliculas WHERE id = %s", (id,))
+    data = cur.fetchone()
+    cur.close()
+    return render_template("pelicula.html", data=data)
+
+
+@app.route("/peliculas/<int:id>/delete")
+def delete_pelicula(id):
+    cur = mysql.connection.cursor()
+    cur.execute("DELETE FROM peliculas WHERE id = %s", (id,))
+    mysql.connection.commit()
+    cur.close()
+    return jsonify({"message": "Pelicula eliminada con exito"}), 200
+
+
+@app.route("/peliculas/<int:id>/update", methods=["POST"])
+def update_pelicula(id):
+    if request.method == "POST":
+        try:
+            data = request.form
+            titulo = data["titulo"]
+            anio = data["anio"]
+            descripcion = data["descripcion"]
+            portada = data["portada"]
+            categoria = data["categoria"]
+
+            cur = mysql.connection.cursor()
+            cur.execute(
+                "UPDATE peliculas SET titulo = %s, anio = %s, descripcion = %s, portada = %s, categoria = %s WHERE id = %s",
+                (titulo, anio, descripcion, portada, categoria, id),
+            )
+            mysql.connection.commit()
+            cur.close()
+            return jsonify({"message": "Pelicula actualizada con exito"}), 200
+        except Exception as e:
+            return jsonify({"message": str(e)}), 500
+
+
 if __name__ == "__main__":
     app.run(debug=True)
