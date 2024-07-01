@@ -1,22 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
+{% block content %}
+<main class="container d-flex justify-content-center flex-column">
+    <h1 class="text-center">Listado de Peliculas</h1>
+    <section class="d-grid w-25 p-2">
+        {% for peli in data %}
+        <div class="card d-flex flex-column align-items-center">
+            <img src={{ peli[4] }} class="card-img-top " alt="Fissure in Sandstone" />
+            <div class="card-body">
+                <h5 class="card-title">{{ peli[1] }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Año: {{ peli[2] }}</h6>
+                <p class="card-text">{{ peli[3] }}</p>
+                <div class="d-flex flex-row justify-content-between">
+                    <h6 class="btn card-subtitle mb-2 text-truncate ">Editar</h6>
+                    <h6 class="btn card-subtitle mb-2 text-danger ">Eliminar</h6>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listado </title>
-</head>
-
-<body>
-
-    <h1>Listado de Peliculas</h1>
-    {% for peli in data %}
-    <p>{{ peli[1] }}</p>
-    <p>{{ peli[2] }}</p>
-    <p>{{ peli[3] }}</p>
-    <img src={{ peli[4] }} alt={{ peli[1] }}>
-    {% endfor %}
-
-</body>
-
-</html>
+    </section>
+</main>
+{% endblock %}
