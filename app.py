@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, jsonify
+from flask import Flask, request, render_template, jsonify, redirect, url_for
 from flask_mysqldb import MySQL
 from dotenv import load_dotenv
 import os
@@ -19,7 +19,7 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/login", methods=["POST"])
+@app.route("/login", methods=["GET", "POST"])
 def login_user():
     if request.method == "POST":
         try:
@@ -34,16 +34,18 @@ def login_user():
             )
             user = cur.fetchone()
             if user:
-                return jsonify({"message": "Login exitoso"}), 200
-                # redirigir al home
+                return redirect(url_for("index"))
+
             else:
-                return jsonify({"message": "Credenciales incorrectas"}), 401
-                # redirigir nuevamente al login
+                return redirect(url_for("login"))
+
         except Exception as e:
             return jsonify({"message": str(e)}), 500
 
+    return render_template("login.html")
 
-@app.route("/register", methods=["POST"])
+
+@app.route("/register", methods=["GET", "POST"])
 def create_user():
     if request.method == "POST":
         try:
@@ -59,9 +61,10 @@ def create_user():
             )
             mysql.connection.commit()
             cur.close()
-            return jsonify({"message": "Usuario creado con exito"}), 201
+            return redirect(url_for("login"))
         except Exception as e:
             return jsonify({"message": str(e)}), 500
+    return render_template("register.html")
 
 
 @app.route("/agregar", methods=["POST"])
