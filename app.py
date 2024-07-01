@@ -8,10 +8,10 @@ load_dotenv()
 
 mysql = MySQL(app)
 # conexion base de datos
-app.config["MYSQL_HOST"] = "sql10.freesqldatabase.com"
-app.config["MYSQL_USER"] = "sql10717164"
-app.config["MYSQL_PASSWORD"] = "X5eKb3Z4Ra"
-app.config["MYSQL_DB"] = "sql10717164"
+app.config["MYSQL_HOST"] = os.getenv("MYSQL_HOST")
+app.config["MYSQL_USER"] = os.getenv("MYSQL_USER")
+app.config["MYSQL_PASSWORD"] = os.getenv("MYSQL_PASSWORD")
+app.config["MYSQL_DB"] = os.getenv("MYSQL_DB")
 
 
 @app.route("/")
