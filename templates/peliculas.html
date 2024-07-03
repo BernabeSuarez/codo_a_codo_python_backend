@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
-<main class="container d-flex justify-content-center flex-column">
+<main class="container text-center">
     <h1 class="text-center">Listado de Peliculas</h1>
-    <section class="d-grid w-25 p-2">
+    <section class="row gap-5 w-100 p-1">
         {% for peli in data %}
-        <div class="card d-flex flex-column align-items-center">
+        <div class=" col-2 card d-flex flex-column align-items-center">
             <img src={{ peli[4] }} class="card-img-top " alt="Fissure in Sandstone" />
             <div class="card-body">
                 <h5 class="card-title">{{ peli[1] }}</h5>

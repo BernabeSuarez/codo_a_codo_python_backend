@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, jsonify, redirect, url_for
+from flask import Flask, request, render_template, jsonify, redirect, url_for, session
 from flask_mysqldb import MySQL
 from dotenv import load_dotenv
 import os
@@ -12,6 +12,7 @@ app.config["MYSQL_HOST"] = os.getenv("MYSQL_HOST")
 app.config["MYSQL_USER"] = os.getenv("MYSQL_USER")
 app.config["MYSQL_PASSWORD"] = os.getenv("MYSQL_PASSWORD")
 app.config["MYSQL_DB"] = os.getenv("MYSQL_DB")
+app.secret_key = os.getenv("CAC_PYTHON_KEY")
 
 
 @app.route("/")
@@ -33,11 +34,15 @@ def login_user():
                 (email, password),
             )
             user = cur.fetchone()
+
             if user:
+                print(user)
+                session["userId"] = user[0]
+                session["username"] = user[1]
                 return redirect(url_for("index"))
 
             else:
-                return redirect(url_for("login"))
+                return redirect("/login")
 
         except Exception as e:
             return jsonify({"message": str(e)}), 500
@@ -67,6 +72,13 @@ def create_user():
     return render_template("register.html")
 
 
+@app.route("/logout", methods=["POST"])
+def logout():
+    session.pop("username", None)
+    session.pop("role", None)
+    return redirect("/login")
+
+
 @app.route("/agregar", methods=["POST"])
 def agregar_pelicula():
     if request.method == "POST":
@@ -92,52 +104,64 @@ def agregar_pelicula():
 
 @app.route("/peliculas")
 def get_peliculas():
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM peliculas")
-    data = cur.fetchall()
-    cur.close()
-    return render_template("peliculas.html", data=data)
+    if "username" in session:
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * FROM peliculas")
+        data = cur.fetchall()
+        cur.close()
+        return render_template("peliculas.html", data=data)
+    else:
+        return redirect("/login")
 
 
 @app.route("/peliculas/<int:id>")
 def get_pelicula(id):
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM peliculas WHERE id = %s", (id,))
-    data = cur.fetchone()
-    cur.close()
-    return render_template("pelicula.html", data=data)
+    if "username" in session:
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * FROM peliculas WHERE id = %s", (id,))
+        data = cur.fetchone()
+        cur.close()
+        return render_template("pelicula.html", data=data)
+    else:
+        return redirect("/login")
 
 
 @app.route("/peliculas/<int:id>/delete")
 def delete_pelicula(id):
-    cur = mysql.connection.cursor()
-    cur.execute("DELETE FROM peliculas WHERE id = %s", (id,))
-    mysql.connection.commit()
-    cur.close()
-    return jsonify({"message": "Pelicula eliminada con exito"}), 200
+    if "username" in session:
+        cur = mysql.connection.cursor()
+        cur.execute("DELETE FROM peliculas WHERE id = %s", (id,))
+        mysql.connection.commit()
+        cur.close()
+        return jsonify({"message": "Pelicula eliminada con exito"}), 200
+    else:
+        return redirect("/login")
 
 
 @app.route("/peliculas/<int:id>/update", methods=["POST"])
 def update_pelicula(id):
-    if request.method == "POST":
-        try:
-            data = request.form
-            titulo = data["titulo"]
-            anio = data["anio"]
-            descripcion = data["descripcion"]
-            portada = data["portada"]
-            categoria = data["categoria"]
+    if "username" in session:
+        if request.method == "POST":
+            try:
+                data = request.form
+                titulo = data["titulo"]
+                anio = data["anio"]
+                descripcion = data["descripcion"]
+                portada = data["portada"]
+                categoria = data["categoria"]
 
-            cur = mysql.connection.cursor()
-            cur.execute(
-                "UPDATE peliculas SET titulo = %s, anio = %s, descripcion = %s, portada = %s, categoria = %s WHERE id = %s",
-                (titulo, anio, descripcion, portada, categoria, id),
-            )
-            mysql.connection.commit()
-            cur.close()
-            return jsonify({"message": "Pelicula actualizada con exito"}), 200
-        except Exception as e:
-            return jsonify({"message": str(e)}), 500
+                cur = mysql.connection.cursor()
+                cur.execute(
+                    "UPDATE peliculas SET titulo = %s, anio = %s, descripcion = %s, portada = %s, categoria = %s WHERE id = %s",
+                    (titulo, anio, descripcion, portada, categoria, id),
+                )
+                mysql.connection.commit()
+                cur.close()
+                return jsonify({"message": "Pelicula actualizada con exito"}), 200
+            except Exception as e:
+                return jsonify({"message": str(e)}), 500
+    else:
+        return redirect("/login")
 
 
 if __name__ == "__main__":
