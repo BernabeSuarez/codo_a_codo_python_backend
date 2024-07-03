@@ -4,15 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listado </title>
+    <title>Codo a codo Peliculas </title>
+
+    <link rel="stylesheet" href="/static/styles/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="/static/styles/style.css">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='styles/style.css')}}">
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
         <div class="container-fluid">
+            <div class="d-flex flex-row align-items-center"><img
+                    src="https://img.freepik.com/vector-gratis/dibujado-mano-camara-cine-retro_53876-15804.jpg?t=st=1719864037~exp=1719867637~hmac=8e5c7f53ff6813309dbf7dcbe647a1188c3973cc496a4afc6553116341462995&w=1060"
+                    style="width: 50px;margin-right: 1em;" alt="logo">
+                <h2>Codo a Codo Peliculas</h2>
+            </div>
             <div class="collapse navbar-collapse" id="navbarRightAlignExample">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 g-5">
                     <li class="nav-item">
@@ -23,7 +30,8 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Agregar peliculas</a>
+                        <button class="nav-link" data-bs-toggle="modal" href="#" data-bs-target="#modal">Agregar
+                            peliculas</button>
                     </li>
                     <form action="/logout" method="POST">
                         <li class="nav-item">
@@ -37,16 +45,64 @@
         </div>
 
     </nav>
+    <div class="gradient-custom-2">
 
-    {% block content %}{% endblock %}
+        {% block content %}{% endblock %}
+    </div>
+    <div class="modal" tabindex="-1" id="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Añadir Pelicula</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <form action="/agregar" method="POST">
+                        <label for="titulo" class="form-label">Titulo</label>
+                        <input name="titulo" class="form-control" type="text" placeholder="Ej: Rocky"
+                            aria-label="default input example">
+
+                        <label for="anio" class="form-label">Año</label>
+                        <input name="anio" class="form-control" type="text" placeholder="Ej: 1985"
+                            aria-label="default input example">
+
+                        <label for="descripcion" class="form-label">Descripcion</label>
+                        <input name="descripcion" class="form-control" type="text" placeholder="Una breve descripcion"
+                            aria-label="default input example">
+                        <label for="portada" class="form-label">URL imagen portada</label>
+                        <input name="portada" class="form-control" type="text" placeholder="URL de la imagen de portada"
+                            aria-label="default input example">
+                        <label for="categoria" class="form-label">Categoria</label>
+                        <input name="categoria" class="form-control" type="text" placeholder="Categoria"
+                            aria-label="default input example">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="boton btn-secondary btn-danger px-5 py-2"
+                        data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="boton-add btn-success px-5 py-2">Añadir</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-        integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
         crossorigin="anonymous"></script>
-
 </body>
+
+
+<script>
+    const myModal = document.getElementById('editModal')
+    const myInput = document.getElementsByClassName('btnModal')
+
+    myModal.addEventListener('shown.bs.modal', () => {
+        myInput.focus()
+    })</script>
+
 
 </html>

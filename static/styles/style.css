@@ -26,3 +26,149 @@
     border-bottom-right-radius: 0.3rem;
   }
 }
+
+.hero {
+  background-color: #f7f7f7; /* Light background for hero section */
+  padding: 80px 0; /* Adjust padding for spacing */
+  text-align: center;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-title {
+  font-size: 3rem; /* Large headline size */
+  font-weight: 600; /* Bold text */
+}
+
+.hero-description {
+  font-size: 1.2rem; /* Medium text size */
+  line-height: 1.5; /* Adjust line height for readability */
+  margin-top: 1rem; /* Add some space above the description */
+  margin-bottom: 1rem;
+}
+
+.boton {
+  background: #d8363a;
+  color: #fff; /* White text color */
+  border: none; /* Remove default button border */
+  padding: 1rem 2rem; /* Adjust padding for button size */
+  cursor: pointer; /* Indicate clickable action */
+  transition: background-color 0.3s ease; /* Smooth hover effect */
+  border-radius: 8px;
+}
+.boton-add {
+  background: #10a006;
+  color: #fff; /* White text color */
+  border: none; /* Remove default button border */
+  padding: 1rem 2rem; /* Adjust padding for button size */
+  cursor: pointer; /* Indicate clickable action */
+  transition: background-color 0.3s ease; /* Smooth hover effect */
+  border-radius: 8px;
+}
+.boton-add:hover {
+  background-color: #095604; /* Darker blue on hover */
+}
+.boton:hover {
+  background-color: #dd3675; /* Darker blue on hover */
+}
+
+/* Navbar styling */
+.navbar {
+  background-color: #ffffff !important; /* Light background color */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle bottom shadow */
+  padding: 1%; /* Adjust padding for content spacing */
+}
+
+.navbar .container-fluid {
+  max-width: 1140px; /* Limit container width for better responsiveness on larger screens */
+}
+
+.navbar-collapse {
+  justify-content: flex-end; /* Align navigation items to the right */
+}
+
+.navbar-brand {
+  /* Target the logo container for styling */
+  display: flex;
+  align-items: center;
+}
+
+.navbar-brand img {
+  width: 50px; /* Maintain logo width */
+  height: auto; /* Maintain aspect ratio */
+  margin-right: 1rem; /* Adjust margin for spacing */
+}
+
+.nav-link {
+  color: #333; /* Darker text color for better contrast */
+  font-weight: 500; /* Slightly bolder text */
+  padding: 0.5rem 1rem; /* Adjust padding for comfortable spacing */
+}
+
+.nav-link:hover {
+  color: #007bff; /* Blue highlight on hover */
+  text-decoration: none; /* Remove underline on hover */
+}
+
+.nav-item {
+  margin-right: 1.5rem; /* Adjust margin for better separation */
+}
+
+.nav-item:last-child {
+  margin-right: 0; /* Remove margin from the last item */
+}
+
+/* General card styling */
+.card {
+  border: none; /* Remove default card border */
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  border-radius: 0.5rem; /* Rounded corners */
+  transition: transform 0.2s ease-in-out; /* Smooth hover effect */
+  padding: 12px;
+}
+
+.card:hover {
+  transform: translateY(-3px); /* Slight lift on hover */
+}
+
+/* Image styling */
+.card-img-top {
+  border-top-left-radius: 0.5rem; /* Rounded top-left corner */
+  border-top-right-radius: 0.5rem; /* Rounded top-right corner */
+}
+
+/* Card title and subtitle */
+.card-title,
+.card-subtitle {
+  font-weight: 500; /* Slightly bolder text */
+  margin-bottom: 0.5rem; /* Adjust spacing */
+}
+
+/* Card body text */
+.card-text {
+  line-height: 1.5; /* Improve readability */
+  color: #777; /* Subdued text color */
+}
+
+/* Edit and Delete buttons */
+.btn {
+  background-color: transparent !important; /* Remove button background */
+  border: none !important; /* Remove button border */
+  padding: 0 !important; /* Remove button padding */
+  cursor: pointer; /* Indicate clickable action */
+  color: #007bff; /* Blue for edit */
+}
+
+.btn:hover {
+  color: #0056b3; /* Darker blue on hover for edit */
+}
+
+.btn.text-danger {
+  color: #dc3545; /* Red for delete */
+}
+
+.btn.text-danger:hover {
+  color: #bd2130; /* Darker red on hover for delete */
+}

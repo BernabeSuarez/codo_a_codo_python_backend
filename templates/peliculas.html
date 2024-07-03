@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
-<main class="container text-center">
-    <h1 class="text-center">Listado de Peliculas</h1>
+<main class="container text-center py-5 ">
+    <h1 class="text-center mb-3">Listado de Peliculas</h1>
     <section class="row gap-5 w-100 p-1">
         {% for peli in data %}
         <div class=" col-2 card d-flex flex-column align-items-center">
@@ -11,13 +11,17 @@
                 <h6 class="card-subtitle mb-2 text-muted">Año: {{ peli[2] }}</h6>
                 <p class="card-text">{{ peli[3] }}</p>
                 <div class="d-flex flex-row justify-content-between">
-                    <h6 class="btn card-subtitle mb-2 text-truncate ">Editar</h6>
-                    <h6 class="btn card-subtitle mb-2 text-danger ">Eliminar</h6>
+                    <h6 class="btn card-subtitle mb-2 text-truncate">Editar</h6>
+                    <form action="/peliculas/{{ peli[0] }}/delete">
+                        <button type="submit" class="btn card-subtitle mb-2 text-danger ">Eliminar</butto>
+                    </form>
                 </div>
             </div>
         </div>
         {% endfor %}
 
     </section>
+
 </main>
+
 {% endblock %}
