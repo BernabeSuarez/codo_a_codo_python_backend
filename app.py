@@ -97,7 +97,7 @@ def agregar_pelicula():
             )
             mysql.connection.commit()
             cur.close()
-            return jsonify({"message": "Pelicula agregada con exito"}), 201
+            return redirect("/peliculas")
         except Exception as e:
             return jsonify({"message": str(e)}), 500
 
@@ -133,7 +133,7 @@ def delete_pelicula(id):
         cur.execute("DELETE FROM peliculas WHERE id = %s", (id,))
         mysql.connection.commit()
         cur.close()
-        return jsonify({"message": "Pelicula eliminada con exito"}), 200
+        return redirect("/peliculas")
     else:
         return redirect("/login")
 
