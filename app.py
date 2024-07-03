@@ -157,7 +157,7 @@ def update_pelicula(id):
                 )
                 mysql.connection.commit()
                 cur.close()
-                return jsonify({"message": "Pelicula actualizada con exito"}), 200
+                return redirect("/peliculas")
             except Exception as e:
                 return jsonify({"message": str(e)}), 500
     else:

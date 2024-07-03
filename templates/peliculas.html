@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<main class="container text-center py-5 ">
+<main class="container  py-5 ">
     <h1 class="text-center mb-3">Listado de Peliculas</h1>
     <section class="row gap-5 w-100 p-1">
         {% for peli in data %}
@@ -11,17 +11,65 @@
                 <h6 class="card-subtitle mb-2 text-muted">Año: {{ peli[2] }}</h6>
                 <p class="card-text">{{ peli[3] }}</p>
                 <div class="d-flex flex-row justify-content-between">
-                    <h6 class="btn card-subtitle mb-2 text-truncate">Editar</h6>
+                    <button class="btn card-subtitle mb-2 " data-bs-toggle="modal" href="#"
+                        data-bs-target="#modal{{ peli[0] }}">Editar</button>
                     <form action="/peliculas/{{ peli[0] }}/delete">
                         <button type="submit" class="btn card-subtitle mb-2 text-danger ">Eliminar</butto>
                     </form>
                 </div>
             </div>
         </div>
+        <!-- modal -->
+        <div class="modal" tabindex="-1" id="modal{{ peli[0] }}">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Editar Pelicula</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <form action="/peliculas/{{ peli[0] }}/update" method="POST">
+                            <label for="titulo" class="form-label">Titulo</label>
+                            <input name="titulo" class="form-control" type="text" placeholder="Ej: Rocky" value={{
+                                peli[1] }}>
+
+                            <label for="anio" class="form-label">Año</label>
+                            <input name="anio" class="form-control" type="text" placeholder="Ej: 1985" value={{ peli[2]
+                                }}>
+
+                            <label for="descripcion" class="form-label">Descripcion</label>
+                            <input name="descripcion" class="form-control" type="text"
+                                placeholder="Una breve descripcion" value={{ peli[3] }}>
+                            <label for="portada" class="form-label">URL imagen portada</label>
+                            <input name="portada" class="form-control" type="text"
+                                placeholder="URL de la imagen de portada" value={{ peli[4] }}>
+                            <label for="categoria" class="form-label">Categoria</label>
+                            <input name="categoria" class="form-control" type="text" placeholder="Categoria" value={{
+                                peli[5] }}>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="boton btn-secondary btn-danger px-5 py-2"
+                            data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="boton-add btn-success px-5 py-2">Editar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
         {% endfor %}
 
     </section>
+    <script>
+        const myModal = document.getElementById('editMovie')
+        const myInput = document.getElementsByClassName('btn-movie')
+
+        myModal.addEventListener('shown.bs.modal', () => {
+            myInput.focus()
+        })</script>
 
 </main>
+
+
 
 {% endblock %}
