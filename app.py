@@ -121,7 +121,7 @@ def get_pelicula(id):
         cur.execute("SELECT * FROM peliculas WHERE id = %s", (id,))
         data = cur.fetchone()
         cur.close()
-        return render_template("pelicula.html", data=data)
+        return render_template("peli.html", data=data)
     else:
         return redirect("/login")
 

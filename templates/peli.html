@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5 p-5">
+    <div class="row text-white">
+        <div class="col-md-4">
+            <img src="{{ data[4] }}" class="img-fluid" alt="Imagen de la película">
+        </div>
+        <div class="col-md-8">
+            <h1>{{ data[1] }}</h1>
+            <h4 class="text-white">Año: {{ data[2] }}</h4>
+            <p>{{ data[3] }}</p>
+            <div class="d-flex justify-content-start mt-3">
+                <a href="/peliculas" class="text-black me-2">Volver</a>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Formulario de edición -->
+    <div class="container mt-3">
+        <h2>Editar Pelicula</h2>
+        <div class="mt-3">
+
+            <form action="/peliculas/{{ data[0] }}/update" method="POST">
+                <label for="titulo" class="form-label">Titulo</label>
+                <input name="titulo" class="form-control" type="text" placeholder="Ej: Rocky" value={{ data[1] }}>
+
+                <label for="anio" class="form-label">Año</label>
+                <input name="anio" class="form-control" type="text" placeholder="Ej: 1985" value={{ data[2] }}>
+
+                <label for="descripcion" class="form-label">Descripción</label>
+                <textarea name="descripcion" class="form-control" placeholder="Una breve descripción"
+                    rows="3">{{ data[3] }}</textarea>
+
+                <label for="portada" class="form-label">URL imagen portada</label>
+                <input name="portada" class="form-control" type="text" placeholder="URL de la imagen de portada"
+                    value={{ data[4] }}>
+                <label for="categoria" class="form-label">Categoria</label>
+                <input name="categoria" class="form-control" type="text" placeholder="Categoria" value={{ data[5] }}>
+        </div>
+        <div class="mt-3">
+
+            <button type="submit" class="boton-add btn-success px-5 py-2">Editar</button>
+        </div>
+        </form>
+    </div>
+</div>
+</div>
+
+
+{% endblock %}

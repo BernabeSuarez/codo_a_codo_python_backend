@@ -28,11 +28,12 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/peliculas">Listado</a>
                     </li>
-
+                    {% if session.user %}
                     <li class="nav-item">
                         <button class="nav-link" data-bs-toggle="modal" href="#" data-bs-target="#modal">Agregar
                             peliculas</button>
                     </li>
+                    {% endif %}
                     <form action="/logout" method="POST">
                         <li class="nav-item">
                             <button class="nav-link" type="submit">Salir</button>

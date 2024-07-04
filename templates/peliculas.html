@@ -4,13 +4,15 @@
     <h1 class="text-center mb-3">Listado de Peliculas</h1>
     <section class="row gap-5 w-100 p-1">
         {% for peli in data %}
-        <div class=" col-2 card d-flex flex-column align-items-center">
+
+        <div class="col-2 card d-flex flex-column align-items-center">
             <img src={{ peli[4] }} class="card-img-top " alt="Fissure in Sandstone" />
             <div class="card-body">
                 <h5 class="card-title">{{ peli[1] }}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">Año: {{ peli[2] }}</h6>
-                <p class="card-text">{{ peli[3] }}</p>
-                <div class="d-flex flex-row justify-content-between">
+                <p class="card-text text-clamp">{{ peli[3] }}</p>
+                <a href="/peliculas/{{ peli[0] }}" class="mt-3  text-decoration-none">Ver detalle</a>
+                <div class="d-flex flex-row justify-content-between mt-3">
                     <button class="btn card-subtitle mb-2 " data-bs-toggle="modal" href="#"
                         data-bs-target="#modal{{ peli[0] }}">Editar</button>
                     <form action="/peliculas/{{ peli[0] }}/delete">
@@ -19,6 +21,7 @@
                 </div>
             </div>
         </div>
+        </a>
         <!-- modal -->
         <div class="modal" tabindex="-1" id="modal{{ peli[0] }}">
             <div class="modal-dialog">

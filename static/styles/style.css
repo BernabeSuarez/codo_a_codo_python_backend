@@ -152,6 +152,13 @@
   color: #777; /* Subdued text color */
 }
 
+.text-clamp {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
 /* Edit and Delete buttons */
 .btn {
   background-color: transparent !important; /* Remove button background */
