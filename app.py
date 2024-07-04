@@ -104,6 +104,7 @@ def agregar_pelicula():
 
 @app.route("/peliculas")
 def get_peliculas():
+
     if "username" in session:
         cur = mysql.connection.cursor()
         cur.execute("SELECT * FROM peliculas")

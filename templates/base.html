@@ -14,21 +14,28 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
-        <div class="container-fluid">
+        <div class="container">
             <div class="d-flex flex-row align-items-center"><img
                     src="https://img.freepik.com/vector-gratis/dibujado-mano-camara-cine-retro_53876-15804.jpg?t=st=1719864037~exp=1719867637~hmac=8e5c7f53ff6813309dbf7dcbe647a1188c3973cc496a4afc6553116341462995&w=1060"
                     style="width: 50px;margin-right: 1em;" alt="logo">
                 <h2>Codo a Codo Peliculas</h2>
             </div>
             <div class="collapse navbar-collapse" id="navbarRightAlignExample">
+
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 g-5">
+                    {% if session.username %}
+
+                    <li class="nav-item">
+                        <p class="nav-link fw-lighter">Bienvenido, {{ session.username }}</p>
+                    </li>
+                    {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" href="/">Inicio</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/peliculas">Listado</a>
                     </li>
-                    {% if session.user %}
+                    {% if session.username %}
                     <li class="nav-item">
                         <button class="nav-link" data-bs-toggle="modal" href="#" data-bs-target="#modal">Agregar
                             peliculas</button>
